@@ -85,3 +85,35 @@
     flex-wrap: wrap;
     padding: 20px;
 }
+
+.menu-con{
+    display:flex;
+    flex-direction: column;
+    padding: 30px 50px;
+}
+.rest-details{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 20px 0px;
+    border: solid rgb(156, 153, 153) 1px;
+    border-radius: 10px;
+    max-width: 500px;
+    background-color: rgb(210, 211, 213);
+}
+.rest-details p{
+    padding-top: 10px;
+}
+.menu-card{
+      display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 20px 0px;
+    border: solid rgb(156, 153, 153) 1px;
+    border-radius: 10px;
+    max-width: 500px;
+    background-color: rgb(210, 211, 213);
+}
+.menu-card p{
+    padding-top: 10px;
+}
