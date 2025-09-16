@@ -1,25 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import MenuCard from "./MenuCard";
+import useRestMenu from "../utils/useRestmenu";
 
 function RestMenu() {
   const { id } = useParams();
-  const [restMenu, setRestMenu] = useState(null);
 
-  useEffect(() => {
-    getRestMenu();
-  }, []);
+  const restMenu = useRestMenu({ id });
 
-  const getRestMenu = async () => {
-    let data = await fetch(
-      "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=13.0448827&lng=80.124266&restaurantId="+id+"&catalog_qa=undefined&submitAction=ENTER"
-    );
-
-    let json = await data.json();
-    setRestMenu(json);
-  };
+  console.log(restMenu);
   //   conditional redering
-  if(!restMenu){
-    return <h2>Loding the rest menu</h2>
+  if (!restMenu) {
+    return <h2>Loading the rest menu</h2>;
   }
   const {
     name,
@@ -31,6 +23,9 @@ function RestMenu() {
     sla,
   } = restMenu.data.cards[2].card.card.info;
 
+  const items =
+    restMenu.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
+      .itemCards;
   return (
     <div className="menu-con">
       <div className="rest-details">
@@ -44,11 +39,10 @@ function RestMenu() {
         </p>
       </div>
       <h1>Menu</h1>
-      <div className="menu-card">
-        <h3 className="menu-name">Double Chicken Roll</h3>
-        <p className="menu-price">168.57</p>
-        <p className="menu-rating">4.2 (168)</p>
-      </div>
+      {items.map((i) => {
+        return <MenuCard key={i.card.info.id} items={i} />;
+      })}
+      
     </div>
   );
 }
